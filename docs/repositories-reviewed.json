@@ -1,0 +1,85 @@
+{
+  "reviewed_on": "2026-11-03",
+  "repositories": [
+    {
+      "repo": "majidmanzarpour/threejs-game-skills",
+      "url": "https://github.com/majidmanzarpour/threejs-game-skills",
+      "license": "MIT",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-09-28T03:23:18Z",
+      "reviewed_sha": "8286774b22a2566bf894dbc825825c16921866af"
+    },
+    {
+      "repo": "CloudAI-X/threejs-skills",
+      "url": "https://github.com/CloudAI-X/threejs-skills",
+      "license": "MIT",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-10-19T05:17:24Z",
+      "reviewed_sha": "0e181866f095b5f06d005133876e926515390d95"
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "url": "https://github.com/mrdoob/three.js",
+      "license": "MIT",
+      "default_branch": "dev",
+      "archived": false,
+      "pushed_at": "2026-11-03T09:32:13Z",
+      "reviewed_sha": "601bc21631e24674aa68fe5875f98d631a41b551"
+    },
+    {
+      "repo": "donmccurdy/glTF-Transform",
+      "url": "https://github.com/donmccurdy/glTF-Transform",
+      "license": "MIT",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-10-20T11:41:51Z",
+      "reviewed_sha": "8e2a94a2616d293c4b503d0fb6a4b42e6ec7c62f"
+    },
+    {
+      "repo": "donmccurdy/three-pathfinding",
+      "url": "https://github.com/donmccurdy/three-pathfinding",
+      "license": "MIT",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-10-06T02:02:34Z",
+      "reviewed_sha": "b55cd7e825c5bd01965083f2543b13048a7d4127"
+    },
+    {
+      "repo": "KhronosGroup/glTF-Validator",
+      "url": "https://github.com/KhronosGroup/glTF-Validator",
+      "license": "Apache-2.0",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-10-06T19:02:48Z",
+      "reviewed_sha": "602c54043ba66856b2e68c40fdf2bced975cdb8a"
+    },
+    {
+      "repo": "anthropics/skills",
+      "url": "https://github.com/anthropics/skills",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-10-28T19:20:39Z",
+      "reviewed_sha": "ca45fc496a3436251f191354091d557da31c15b5"
+    },
+    {
+      "repo": "microsoft/playwright",
+      "url": "https://github.com/microsoft/playwright",
+      "license": "Apache-2.0",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-11-03T04:45:03Z",
+      "reviewed_sha": "df99adab7ff784412ebf5d0970a03a788184ba6a"
+    },
+    {
+      "repo": "microsoft/playwright-mcp",
+      "url": "https://github.com/microsoft/playwright-mcp",
+      "license": "Apache-2.0",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-11-01T23:12:55Z",
+      "reviewed_sha": "ec572ee8354015293bed67145db21eed386e876d"
+    }
+  ]
+}

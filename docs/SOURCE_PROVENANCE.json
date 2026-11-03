@@ -1,0 +1,220 @@
+{
+  "imported_on": "2026-11-03",
+  "source_archive": "Gold_Shop_Simulator_V1.2_Character_Motion_Accuracy.zip",
+  "source_archive_sha256": "1db916232218935ebdff01e91585db74204158c7448106d61297eaaf8292c1fa",
+  "source_archive_size_bytes": 6673505,
+  "source_release": "V1.2 Character Motion & Accuracy",
+  "game_files_modified_during_import": false,
+  "files": [
+    {
+      "path": "CHANGELOG_V1.1.txt",
+      "size_bytes": 1777,
+      "sha256": "c860183927b9a162108bc5860e807b508462a67c1b18e71e0620fd04697e4e9a"
+    },
+    {
+      "path": "CHANGELOG_V1.2.txt",
+      "size_bytes": 2939,
+      "sha256": "28865f83d055d81f5eade0539c9b33f8279aac210fcfe4134f188f914cc63cc9"
+    },
+    {
+      "path": "START_HERE.txt",
+      "size_bytes": 1652,
+      "sha256": "acd836773909553c8a5cef6b67fa237825ea45da013b110cc4ab32a37f4bfd28"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.txt",
+      "size_bytes": 2057,
+      "sha256": "53aa3fcf86cfc953c8adb8a6ddec4070d4efc5e14cb82245fbd4304870c7f2d3"
+    },
+    {
+      "path": "app.js",
+      "size_bytes": 125839,
+      "sha256": "d0f18c534fbbe6cc1717c9b699f74ccc5b274e57331473013423b2e35e90d336"
+    },
+    {
+      "path": "assets/characters/README.txt",
+      "size_bytes": 1564,
+      "sha256": "19a7e9da200a9af3be674466c6a526e274f145a92e3001ad4b0ae66874941c39"
+    },
+    {
+      "path": "assets/showroom_cinematic.jpg",
+      "size_bytes": 416803,
+      "sha256": "59a666df4014795548d9b9601a31add0ea6b7bcd4ae56cf5ccbca6ee2f90be98"
+    },
+    {
+      "path": "assets/showroom_reference.png",
+      "size_bytes": 3882525,
+      "sha256": "1d934f78abd2cdd27797d1c3958c2f3c98de45e1e7574282799f35bff33e7cc5"
+    },
+    {
+      "path": "assets/textures/dark_marble_albedo.png",
+      "size_bytes": 208857,
+      "sha256": "5d2ba0bc1fa0ebb5c900a2e35e2031d58c099ca0313e87001250dbe4f2208e23"
+    },
+    {
+      "path": "assets/textures/dark_marble_roughness.png",
+      "size_bytes": 141168,
+      "sha256": "4606a4618c79791f49ef7479f2c8cbec193c74470137fe01404808873e123aba"
+    },
+    {
+      "path": "assets/textures/fabric_charcoal.png",
+      "size_bytes": 210826,
+      "sha256": "c5de54018371893cb095f8faac5b4289dc046440840c48da1780f331bb523c16"
+    },
+    {
+      "path": "assets/textures/fabric_roughness.png",
+      "size_bytes": 150792,
+      "sha256": "20cb29cc9374f1b0392d5bd494af6cf88aaffe07b0adb8fd55fa224f9ca05d45"
+    },
+    {
+      "path": "assets/textures/marble_albedo.png",
+      "size_bytes": 346423,
+      "sha256": "b9ebed7b1f52a1acc20cc0208d85d75446473eded4ac3df441254b6236ec7853"
+    },
+    {
+      "path": "assets/textures/marble_normal.png",
+      "size_bytes": 417048,
+      "sha256": "4dbb34fd11aeb48eea21d0522e398acd9b3c3f2e5b52cf4211f69e8e46b1a8f7"
+    },
+    {
+      "path": "assets/textures/marble_roughness.png",
+      "size_bytes": 161460,
+      "sha256": "dabb12396b00daaa1425d0c30db6896ea30eec4611ad8d20e7d41366f83dd9e5"
+    },
+    {
+      "path": "assets/textures/wood_albedo.png",
+      "size_bytes": 398819,
+      "sha256": "b9308b9ca07c9d8fc69b68385ea11c00bb2502caa76355213813c79aa756840d"
+    },
+    {
+      "path": "assets/textures/wood_roughness.png",
+      "size_bytes": 153355,
+      "sha256": "04a1f50503b98166532b389440464aba66c377b631d4ed352de7942fb47f56fd"
+    },
+    {
+      "path": "auth.js",
+      "size_bytes": 3891,
+      "sha256": "c1be793ae8063f98a2ed321c95c8b0664cc50bf4a09c47dcdc7445d58a5c44a4"
+    },
+    {
+      "path": "immersive.css",
+      "size_bytes": 9109,
+      "sha256": "4c4fb7e7b86502d723d03c380d339700aafa1248010c319637244ab6e5d603a0"
+    },
+    {
+      "path": "index.html",
+      "size_bytes": 47343,
+      "sha256": "0643f4ba331607211c8b9a4a8d7f210c2121e41011cf2e759a3a196492e4bd1d"
+    },
+    {
+      "path": "styles.css",
+      "size_bytes": 34176,
+      "sha256": "9af0c78f2a0aeb56cd70fcd07ce3a6cc41fc296b6c84f99b769afc66a55a11e8"
+    },
+    {
+      "path": "unified.js",
+      "size_bytes": 12153,
+      "sha256": "ccdaab2a5e7becb6fa90daf2231b5c63fbf2a2807e0829cfe6bdcf4cceab9e1e"
+    },
+    {
+      "path": "v1-complete.css",
+      "size_bytes": 11833,
+      "sha256": "df6d8b4441da8c08b7ad0e6970cba3a356837d1ab257e2fc04cf849ff9b05fdc"
+    },
+    {
+      "path": "v1-complete.js",
+      "size_bytes": 5705,
+      "sha256": "c1d38de7e0e8db7c61739f5e60a9bb8b825edbbbe7489c4e37434c3515ef3af1"
+    },
+    {
+      "path": "v1-real3d.js",
+      "size_bytes": 92522,
+      "sha256": "6e83a79ec779827c43fff9c228f2cd398e1577987677de7e273f4aa4accb0bd0"
+    },
+    {
+      "path": "v2.css",
+      "size_bytes": 7346,
+      "sha256": "72969ee74c98b11ccc226d715126d164f81ea3de345daca0d4c9e7510af0a549"
+    },
+    {
+      "path": "v2.js",
+      "size_bytes": 19408,
+      "sha256": "ae5f9c832b8233a1af621fcd10a31cd221ba15c2638fe64d3c6f86a129bd83a8"
+    },
+    {
+      "path": "v3.css",
+      "size_bytes": 7884,
+      "sha256": "5abbbb32c967d5554ac57b4ab8a43c1300482b4eb9ca5ac723ef0f1462756ae8"
+    },
+    {
+      "path": "v3.js",
+      "size_bytes": 60643,
+      "sha256": "cbb1d457f4927955a8fefce7556f06442b2be4073ceaef38397b459cd94df2e1"
+    },
+    {
+      "path": "v4.css",
+      "size_bytes": 3804,
+      "sha256": "b048f2a68b7909324f4b9704174ae6a5227406713b3c1a884b18a685847f9523"
+    },
+    {
+      "path": "v4.js",
+      "size_bytes": 759,
+      "sha256": "4cf81264bd61d8228ec3a0a1b3992e14f3ae1b107d20804826aab0024bb7ac51"
+    },
+    {
+      "path": "v45.css",
+      "size_bytes": 3646,
+      "sha256": "acb9e2930a57f4d61f7cc2dd1e33e9ef7436c151c9c14394488fe18ee6463119"
+    },
+    {
+      "path": "v45.js",
+      "size_bytes": 10973,
+      "sha256": "0df225284d42ebd9ceb45d868dfd785972bd5f22c9f76ec1bdd96e15d3eae75d"
+    },
+    {
+      "path": "v46.css",
+      "size_bytes": 6819,
+      "sha256": "f2e14048b16557fdf52c518e25a88594664d38ad75b7b75889d351db5708f320"
+    },
+    {
+      "path": "v46.js",
+      "size_bytes": 2465,
+      "sha256": "d78b6eb62a062155ebe53024cedeb3c6f8358392c0a453576e88d1017c7da25e"
+    },
+    {
+      "path": "v47.css",
+      "size_bytes": 1606,
+      "sha256": "0ae1f5f98b789768bd774b4d852e9d0940e55c9d4b0070403cbbc609deba98ee"
+    },
+    {
+      "path": "v47.js",
+      "size_bytes": 1701,
+      "sha256": "bb4e08e35e0c360ed615f5f38547f24df5b8e7ecea3f7d7453bea9a9c6d85fcf"
+    },
+    {
+      "path": "v5.css",
+      "size_bytes": 12379,
+      "sha256": "8995151452458366702178064342d8990328537edc7f26f9972a08b42cd403dd"
+    },
+    {
+      "path": "v5.js",
+      "size_bytes": 4784,
+      "sha256": "6d84863fe65a9e0baeb8273a786dd826629ea4aba7f700695e78bdc3f35fc09c"
+    },
+    {
+      "path": "v6-three.css",
+      "size_bytes": 3537,
+      "sha256": "628c52728cb405814e7020ce6a789055e497e7b592349e600b14bb8e734c28b1"
+    },
+    {
+      "path": "v9-playable.css",
+      "size_bytes": 13433,
+      "sha256": "9aa7820a36544365a3c2311f6f59aa47bcd555a739ee878b34c68f86b36e46e0"
+    },
+    {
+      "path": "v9-playable.js",
+      "size_bytes": 37010,
+      "sha256": "196cee1c8b1c4d636a3cdedd1463dcfea9620a38dc8b54b570a254250a297e9a"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+GOLD SHOP SIMULATOR V1.2 - CHARACTER MOTION & GAMEPLAY ACCURACY
+
+CHẠY GAME
+1. Giải nén toàn bộ thư mục.
+2. Mở index.html bằng Chrome/Edge hiện đại.
+3. Đăng nhập/tạo profile local.
+4. Chọn chủ tiệm NAM hoặc NỮ.
+5. Hoàn tất setup và vào CỬA HÀNG 3D.
+
+BẢN NÀY SỬA GÌ
+- Animation GLB dùng AnimationMixer nếu model có Idle/Walk/Run/Talk.
+- Cross-fade animation, tốc độ clip bám vận tốc thật để giảm foot sliding.
+- Simulation sub-step giúp chuyển động không chậm đi khi FPS thấp.
+- Va chạm tính radius nhân vật thay vì chỉ dùng một điểm.
+- Player/NPC tránh quầy/tường chính xác hơn.
+- Khách, nhân viên và ambient NPC đều có smart path + repath khi kẹt.
+- Nghiệp vụ chỉ thao tác khi chủ tiệm đã thật sự tới gần quầy/khách.
+- Camera smoothing, adaptive DPR, low-end PostFX guard và far-NPC throttling vẫn được giữ.
+
+MODEL NHÂN VẬT FINAL
+Runtime ưu tiên hai file local:
+- assets/characters/owner_m.glb
+- assets/characters/owner_f.glb
+
+Nếu GLB có animation clips với tên chứa Idle / Walk / Run / Talk, runtime tự nhận và blend.
+Nếu GLB có rig nhưng không có clip locomotion, game vẫn dùng procedural bone animation để nhân vật không đứng cứng.
+
+LƯU Ý QUAN TRỌNG
+- Hai model mannequin/blockout cũ KHÔNG nằm trong bản V1.2 này.
+- Chất lượng chuyển động/runtime và chất lượng sculpt/model là hai lớp riêng. V1.2 hoàn thiện lớp runtime để model production sau này không bị đi giật, xuyên quầy hoặc animation sai tốc độ.

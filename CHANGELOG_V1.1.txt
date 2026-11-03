@@ -1,0 +1,30 @@
+GOLD SHOP SIMULATOR V1.1 - SMOOTH CHARACTER RUNTIME
+
+Runtime / feel
+- Delta-time camera smoothing and actor steering.
+- Acceleration/deceleration + arrival slowdown; no constant-step snapping.
+- Smoothed character yaw instead of instant direction changes.
+- Expanded protected zoom range and wheel zoom.
+- Adaptive rendering resolution based on observed FPS.
+- Automatic low-end postFX guard.
+- Far-NPC animation update throttling.
+
+Navigation / interaction
+- A* diagonal corner-cut prevention.
+- Path waypoint simplification using line-of-sight checks.
+- NPC separation force to reduce body overlap.
+- Safe no-route handling instead of walking directly through counters.
+- Player/staff/customer face targets after interaction.
+
+Characters
+- Owner gender selection (male/female) stored in save state.
+- Gender-aware staff/customer creation and old-save staff migration.
+- Separate male/female rigged-asset loading path.
+- Local final-asset slots: assets/characters/owner_m.glb and owner_f.glb.
+- Built-in fallback rebuilt to human proportions with articulated knees, forearms, palms, fingers, face, hair, clothing and accessories.
+- Rig aliases cover Quaternius, Blender-style and Mixamo-style humanoid names.
+- Animation gait is speed-aware and blended; idle/talk transitions are damped.
+- Shared clone geometry is protected from accidental disposal.
+
+Important art-status note
+V1.1 fixes the game/runtime problem and removes dependence on the old crude mannequin as the only fallback. The folder intentionally contains asset slots for the eventual custom final male/female Gold Shop hero characters. A truly bespoke high-detail owner model still has to be authored/retopologized/textured as a real GLB asset; runtime code cannot manufacture AAA topology from a prompt alone.

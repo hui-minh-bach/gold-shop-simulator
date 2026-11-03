@@ -1,0 +1,38 @@
+GOLD SHOP SIMULATOR V1.2 MOTION 3D RUNTIME - THIRD-PARTY NOTICES
+
+1) three.js
+   Project: https://github.com/mrdoob/three.js
+   License: MIT
+   Runtime version: 0.159.0
+
+2) Interactive showroom interaction references
+   Project: https://github.com/jonybekov/home-3d
+   License: MIT
+   Used as architectural/reference guidance for camera smoothing, raycast showroom interaction and physically-correct-light concepts. No project-specific branded assets are copied into this package.
+
+3) Male rigged public fallback
+   Project: https://github.com/programasweights/avatar
+   Runtime asset: public/assets/gangnam-character.glb
+   Repository code/original costume geometry: MIT
+   Underlying Quaternius Universal Base Characters skeleton/character portions: CC0 1.0 Universal
+   Provenance: https://github.com/programasweights/avatar/blob/main/ASSETS.md
+
+4) Optimized Quaternius male/female rigged public fallbacks
+   Mirror/project: https://github.com/Ashen-Skool/Aot-Fable-5.1
+   Runtime assets: assets/staged/anim/UBC_Superhero_Female_FullBody.glb and UBC_Superhero_Male_FullBody.glb
+   Pinned revision: 122378c422148390c781adc6d7019eda7b5d07f3
+   Model license: CC0 1.0 Universal
+   Upstream: https://quaternius.com/packs/universalbasecharacters.html
+   The optimized female GLB is about 1.5 MB and avoids the Standard glTF pack's historical missing-texture URI issue.
+
+5) Quaternius Ultimate House Interior props (optional network-loaded showroom detail)
+   Runtime mirror/reference repository: https://github.com/sijun-kevin-hu/break-my-house
+   Folder: public/models/house-interior
+   Assets: Chair, Couch Small, Houseplant, Lamp, Shelf Large, Table Round Small
+   Upstream pack license: CC0 1.0 Universal
+
+Additional optional showroom reference assets:
+- KhronosGroup glTF-Sample-Assets: SheenChair, GlamVelvetSofa, GlassVaseFlowers.
+- See each upstream asset's own license in https://github.com/KhronosGroup/glTF-Sample-Assets
+
+The game remains functional when optional network assets are unavailable because local procedural/PBR fallbacks are retained.

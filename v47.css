@@ -1,0 +1,14 @@
+
+:root{--v47-gold:#f6d77f;--v47-panel:rgba(8,7,5,.88)}
+body.cinematic-store .immersive-top-hud{opacity:.18;transition:opacity .2s ease}body.cinematic-store .immersive-top-hud:hover{opacity:1}
+body.cinematic-store .immersive-queue-card,body.cinematic-store .immersive-interaction-card,body.cinematic-store .immersive-flow-card,body.cinematic-store .v46-level-card,body.cinematic-store .v46-mission-card{opacity:.12;transition:opacity .2s ease}
+body.cinematic-store .immersive-queue-card:hover,body.cinematic-store .immersive-interaction-card:hover,body.cinematic-store .immersive-flow-card:hover{opacity:1}
+body.cinematic-store .immersive-dock{opacity:.55;transition:opacity .2s ease}body.cinematic-store .immersive-dock:hover{opacity:1}
+.v47-cinema-btn{min-width:42px}.v47-cinema-btn.active{background:linear-gradient(180deg,#f8dc8b,#cda03a);color:#201405}
+.v47-status-strip{position:absolute;z-index:9;left:50%;top:84px;transform:translateX(-50%);display:flex;gap:6px;pointer-events:none}
+.v47-status-strip span{padding:5px 9px;border-radius:999px;background:rgba(8,7,5,.78);border:1px solid rgba(246,215,127,.19);color:#d8c9a7;font-size:9px;backdrop-filter:blur(10px)}
+.v47-status-strip b{color:#ffe49d}
+.immersive-canvas-wrap{background:radial-gradient(circle at 50% 5%,#3a2816 0,#120d08 41%,#040404 100%)}
+#v3Canvas{filter:saturate(1.13) contrast(1.045) brightness(1.02)}
+.v3-q small{line-height:1.25}.v3-q .face{box-shadow:0 0 0 1px rgba(246,215,127,.08),0 5px 14px rgba(0,0,0,.28)}
+@media(max-width:760px){.v47-status-strip{display:none}body.cinematic-store .immersive-interaction-card{opacity:.95}}

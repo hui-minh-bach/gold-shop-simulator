@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#12100b" />
+  <title>Gold Shop Simulator V1.2 · Character Motion & Accuracy</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./v2.css" />
+  <link rel="stylesheet" href="./v3.css" />
+  <link rel="stylesheet" href="./immersive.css" />
+  <link rel="stylesheet" href="./v4.css" />
+  <link rel="stylesheet" href="./v45.css" />
+  <link rel="stylesheet" href="./v46.css" />
+  <link rel="stylesheet" href="./v47.css" />
+  <link rel="stylesheet" href="./v5.css" />
+  <link rel="stylesheet" href="./v6-three.css" />
+  <link rel="stylesheet" href="./v9-playable.css" />
+  <link rel="stylesheet" href="./v1-complete.css" />
+</head>
+<body>
+<div id="authGate" class="auth-gate" aria-live="polite">
+  <div class="auth-backdrop-art" aria-hidden="true">
+    <div class="auth-light a1"></div><div class="auth-light a2"></div><div class="auth-light a3"></div>
+    <div class="auth-case c1"></div><div class="auth-case c2"></div><div class="auth-case c3"></div>
+  </div>
+  <section class="auth-card">
+    <div class="auth-brand">
+      <div class="auth-logo">◆</div>
+      <div><span>GOLD SHOP SIMULATOR</span><strong>V1.2 · Character Motion & Accuracy</strong></div>
+    </div>
+    <div class="auth-copy"><h1>Khởi nghiệp một tiệm vàng của riêng bạn</h1><p>Đăng nhập hồ sơ local để mỗi người có tên, tiệm và save riêng. Dữ liệu nằm trên chính trình duyệt này.</p></div>
+    <div class="auth-tabs" role="tablist"><button class="active" data-auth-tab="login" type="button">Đăng nhập</button><button data-auth-tab="register" type="button">Tạo hồ sơ mới</button></div>
+    <form id="loginForm" class="auth-panel active" data-auth-panel="login">
+      <label><span>Tên đăng nhập</span><input id="loginUser" autocomplete="username" maxlength="24" placeholder="ví dụ: sau" required></label>
+      <label><span>Mã PIN</span><input id="loginPin" type="password" inputmode="numeric" autocomplete="current-password" maxlength="8" placeholder="4–8 số" required></label>
+      <button class="auth-primary" type="submit">VÀO GAME</button>
+      <div id="loginMessage" class="auth-message"></div>
+    </form>
+    <form id="registerForm" class="auth-panel" data-auth-panel="register">
+      <label><span>Tên người chơi</span><input id="registerName" maxlength="28" placeholder="Tên hiển thị trong game" required></label>
+      <label><span>Tên đăng nhập</span><input id="registerUser" autocomplete="username" maxlength="24" placeholder="Không dấu cũng được" required></label>
+      <label><span>Mã PIN</span><input id="registerPin" type="password" inputmode="numeric" maxlength="8" placeholder="4–8 số" required></label>
+      <button class="auth-primary" type="submit">TẠO HỒ SƠ & KHỞI NGHIỆP</button>
+      <div id="registerMessage" class="auth-message"></div>
+    </form>
+    <div id="authProfileList" class="auth-profile-list"></div>
+    <small class="auth-note">Đây là đăng nhập local cho bản website offline, không phải tài khoản máy chủ. Khi triển khai online có thể thay bằng hệ thống tài khoản thật.</small>
+  </section>
+</div>
+<div id="app" class="app-shell">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">◆</div>
+      <div><div class="brand-title">GOLD SHOP SIMULATOR</div><div class="brand-sub">V1.2 · Character Motion & Accuracy · AnimationMixer + Radius Nav</div></div>
+    </div>
+    <div class="top-actions">
+      <div class="live-pill"><span class="live-dot"></span><span id="topClock">08:00</span></div>
+      <button id="voiceToggleBtn" class="btn ghost" type="button">🔊 Voice: Bật</button>
+      <button id="startupQuickBtn" class="btn ghost startup-quick" type="button">⚙️ Thiết lập</button>
+      <button id="accountBtn" class="btn ghost account-quick" type="button">👤 Tài khoản</button>
+      <button id="exportBtn" class="btn ghost" type="button">Xuất save</button>
+      <button id="importBtn" class="btn ghost" type="button">Nhập save</button>
+      <input id="importFile" type="file" accept="application/json" hidden />
+      <button id="saveBtn" class="btn ghost" type="button">Lưu game</button>
+      <button id="resetBtn" class="btn danger ghost" type="button">Chơi lại</button>
+    </div>
+  </header>
+
+  <nav id="nav" class="nav-tabs" aria-label="Điều hướng trò chơi">
+    <button class="nav-btn active" data-view="setup" type="button">Khởi nghiệp</button>
+    <button class="nav-btn" data-view="shop" type="button">Tiệm vàng</button>
+    <button class="nav-btn v2-live-nav" data-view="live" type="button">● LIVE OPS</button>
+    <button class="nav-btn v3-nav" data-view="store3d" type="button">◆ V1.2 MOTION 3D</button>
+    <button class="nav-btn" data-view="inventory" type="button">Kho / SKU</button>
+    <button class="nav-btn" data-view="pawn" type="button">Cầm đồ</button>
+    <button class="nav-btn" data-view="finance" type="button">Tài chính</button>
+    <button class="nav-btn" data-view="management" type="button">Quản trị</button>
+    <button class="nav-btn" data-view="customers" type="button">Khách hàng</button>
+    <button class="nav-btn" data-view="campaign" type="button">Chiến dịch</button>
+    <button class="nav-btn" data-view="academy" type="button">Học nghề</button>
+    <button class="nav-btn" data-view="report" type="button">Báo cáo</button>
+    <button class="nav-btn" data-view="map" type="button">Bản đồ <span id="mapLock" class="lock">🔒</span></button>
+  </nav>
+
+  <main>
+    <section id="view-setup" class="view active">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">VỐN KHỞI NGHIỆP</span>
+          <h1>10.000.000.000đ</h1>
+          <p>V1.0 là bản Playable 3D hợp nhất: đăng nhập và thiết lập tiệm đầy đủ, vận hành theo ca, khách/NPC đi lại, cân–kiểm vàng, chọn SKU, thương lượng, máy tính, POS, cầm đồ, kho, tài chính và khóa sổ đều chạy trong một vòng chơi thống nhất.</p>
+          <div class="hero-note">Luồng chơi mới: đăng nhập hồ sơ → đặt tên tiệm → chọn mặt bằng → phong cách → thiết bị → phân bổ 10 tỷ → chính sách → khai trương → vận hành liên tục.</div>
+        </div>
+        <div class="money-card">
+          <div class="money-ring"><span>Vốn còn lại</span><strong id="setupRemaining">10,00 tỷ</strong></div>
+          <div class="mini-metrics"><div><span>Chi/khóa vốn</span><strong id="setupSpent">0đ</strong></div><div><span>Tiền tự do</span><strong id="setupCash">10,00 tỷ</strong></div></div>
+        </div>
+      </div>
+
+      <div id="setupStepper" class="premium-setup-stepper" aria-label="Tiến độ thiết lập game">
+        <div data-step="account"><b>1</b><span>Hồ sơ</span></div>
+        <div data-step="identity"><b>2</b><span>Tên tiệm</span></div>
+        <div data-step="location"><b>3</b><span>Mặt bằng</span></div>
+        <div data-step="equipment"><b>4</b><span>Thiết bị</span></div>
+        <div data-step="capital"><b>5</b><span>Phân vốn</span></div>
+        <div data-step="policy"><b>6</b><span>Chính sách</span></div>
+      </div>
+
+      <div class="setup-grid">
+        <article class="panel span-2 identity-setup-card">
+          <div class="panel-head"><div><span class="step">00</span><h2>Đặt tên cửa hàng</h2></div><span class="tag">Tên này sẽ xuất hiện trên bảng hiệu trong game</span></div>
+          <div id="setupAccountBadge" class="setup-account-badge">Hồ sơ người chơi: —</div>
+          <div class="identity-setup-grid">
+            <label><span>Tên tiệm <b>*</b></span><input id="storeNameInput" maxlength="28" autocomplete="off" placeholder="Ví dụ: Tiệm Vàng Minh Anh" /></label>
+            <label><span>Tên chủ tiệm</span><input id="ownerNameInput" maxlength="24" autocomplete="off" placeholder="Tên hiển thị của bạn" /></label>
+          </div>
+          <div id="ownerGenderChoice" class="owner-gender-choice" aria-label="Giới tính nhân vật chủ tiệm">
+            <span>Nhân vật chủ tiệm</span>
+            <button type="button" data-owner-gender="male">NAM</button>
+            <button type="button" data-owner-gender="female">NỮ</button>
+            <small>Dùng rig/model riêng để tỷ lệ cơ thể và chuyển động đúng hơn.</small>
+          </div>
+          <p class="identity-help">Không dùng tên cố định của nhà phát triển. Mỗi người chơi tự đặt tên tiệm và tên chủ ngay khi khởi nghiệp.</p>
+        </article>
+        <article class="panel"><div class="panel-head"><div><span class="step">01</span><h2>Chọn vị trí</h2></div><button class="speak tiny" data-speak="location" type="button">🔊 Nghe</button></div><div id="locationOptions" class="option-grid"></div></article>
+        <article class="panel"><div class="panel-head"><div><span class="step">02</span><h2>Phong cách cửa hàng</h2></div><button class="speak tiny" data-speak="shopTier" type="button">🔊 Nghe</button></div><div id="tierOptions" class="option-grid three"></div></article>
+        <article class="panel"><div class="panel-head"><div><span class="step">03</span><h2>Thiết bị</h2></div><button class="speak tiny" data-speak="equipment" type="button">🔊 Nghe</button></div><div id="equipmentList" class="check-list"></div></article>
+        <article class="panel"><div class="panel-head"><div><span class="step">04</span><h2>Phân bổ vốn</h2></div><button class="speak tiny" data-speak="capital" type="button">🔊 Nghe</button></div><div class="capital-sliders">
+          <label>Nhập hàng ban đầu <strong id="inventoryAllocLabel">5,50 tỷ</strong><input id="inventoryAlloc" type="range" min="2" max="7.2" step="0.1" value="5.5" /></label>
+          <label>Quỹ cầm đồ <strong id="pawnAllocLabel">1,00 tỷ</strong><input id="pawnAlloc" type="range" min="0.2" max="2.5" step="0.1" value="1" /></label>
+          <label>Marketing 30 ngày <strong id="marketingAllocLabel">300 triệu</strong><input id="marketingAlloc" type="range" min="0.05" max="0.8" step="0.05" value="0.3" /></label>
+          <label>Dự phòng thanh khoản <strong id="reserveLabel">700 triệu</strong><input id="reserve" type="range" min="0.3" max="1.5" step="0.1" value="0.7" /></label>
+        </div></article>
+        <article class="panel span-2"><div class="panel-head"><div><span class="step">05</span><h2>Chính sách cầm & đổi</h2></div><button class="speak tiny" data-speak="pawn" type="button">🔊 Nghe</button></div>
+          <div class="policy-grid">
+            <label><span>Cầm ≤ 20 triệu</span><div class="input-suffix"><input data-policy="pawnUpTo20" data-kind="percent" type="number" min="0" max="20" step="0.1" value="3"><b>%/tháng tổng</b></div></label>
+            <label><span>Cầm &gt; 20–50 triệu</span><div class="input-suffix"><input data-policy="pawn20To50" data-kind="percent" type="number" min="0" max="20" step="0.1" value="2.5"><b>%/tháng tổng</b></div></label>
+            <label><span>Cầm &gt; 50 triệu</span><div class="input-suffix"><input data-policy="pawnOver50" data-kind="percent" type="number" min="0" max="20" step="0.1" value="2"><b>%/tháng tổng</b></div></label>
+            <label><span>Phí đổi cùng loại</span><div class="input-suffix"><input data-policy="exchangeFeePerChi" data-kind="money" type="number" min="0" max="2000000" step="10000" value="150000"><b>đ/chỉ</b></div></label>
+          </div>
+          <p class="policy-note"><strong>Nguyên tắc:</strong> % cầm là tổng thu đã gồm lãi + phí. Phí đổi vàng do chủ tiệm tự đặt và áp dụng cho giao dịch mới. <span data-policy-summary></span></p>
+        </article>
+      </div>
+      <div class="launch-bar"><div><span id="setupWarning" class="warning"></span><strong id="setupSummary">Chọn vị trí để bắt đầu.</strong></div><button id="startGameBtn" class="btn primary large" type="button">KHAI TRƯƠNG TIỆM</button></div>
+    </section>
+
+    <section id="view-live" class="view">
+      <div class="section-intro v2-intro">
+        <div><span class="eyebrow">V1.0 · PLAYABLE OPERATIONS</span><h2>Vận hành tiệm theo thời gian thực trong phiên chơi</h2><p>Khách đến theo giờ, xếp hàng, giảm kiên nhẫn; nhân viên có vai trò và năng lượng. Bấm trực tiếp khu vực trong tiệm để làm việc, nhưng mọi tiền–vàng–cầm đồ vẫn chạy trên Core Business Engine V1.0.</p></div>
+        <div class="v2-status-stack"><span id="liveRunBadge" class="v2-live-badge paused">TẠM DỪNG</span><small>Tự lưu 20 giây/lần · local chạy khi tab đang mở</small></div>
+      </div>
+
+      <div class="panel v2-live-controls">
+        <div class="v2-control-group"><button id="livePlayBtn" class="btn primary" type="button">▶ CHẠY CA</button><button id="livePauseBtn" class="btn ghost" type="button">Ⅱ TẠM DỪNG</button></div>
+        <div class="v2-speed-group" aria-label="Tốc độ thời gian"><button class="btn ghost v2-speed active" data-speed="1" type="button">x1</button><button class="btn ghost v2-speed" data-speed="2" type="button">x2</button><button class="btn ghost v2-speed" data-speed="4" type="button">x4</button></div>
+        <div class="v2-clock"><span>GIỜ CỬA HÀNG</span><strong id="liveClock">08:00</strong></div>
+        <div class="v2-control-group"><button id="liveBriefBtn" class="btn ghost" type="button">🔊 Nghe briefing</button><button id="liveFxBtn" class="btn ghost" type="button">🔔 FX: Bật</button></div>
+        <div class="v2-control-group"><button id="liveCloseDayBtn" class="btn gold" type="button">KHÓA SỔ NGÀY</button><button id="liveNewDayBtn" class="btn ghost hidden" type="button">MỞ NGÀY MỚI</button></div>
+      </div>
+
+      <div id="liveStats" class="report-grid v2-live-stats"></div>
+
+      <div class="v2-live-layout">
+        <article class="panel v2-store-panel">
+          <div class="panel-head"><div><span class="step">CỬA HÀNG</span><h2 id="liveStoreName">Tiệm vàng của bạn</h2></div><div id="liveStoreAlert" class="v2-alert-chip">Đang chuẩn bị ca</div></div>
+          <div id="v2StoreFloor" class="v2-store-floor">
+            <button class="v2-zone showroom" data-zone="sales" type="button"><span>💍</span><strong>Tủ trưng bày</strong><small id="zoneSalesCount">0 khách</small></button>
+            <button class="v2-zone cashier" data-zone="cashier" type="button"><span>🧮</span><strong>Thu ngân / POS</strong><small>Máy tính + phiếu</small></button>
+            <button class="v2-zone pawn" data-zone="pawn" type="button"><span>🤝</span><strong>Bàn cầm đồ</strong><small id="zonePawnCount">0 khách</small></button>
+            <button class="v2-zone safezone" data-zone="safe" type="button"><span>🔐</span><strong>Két & tiền</strong><small id="zoneCashText">0đ</small></button>
+            <button class="v2-zone warehouse" data-zone="inventory" type="button"><span>📦</span><strong>Kho / SKU</strong><small id="zoneStockText">0 món</small></button>
+            <button class="v2-zone office" data-zone="office" type="button"><span>📊</span><strong>Văn phòng</strong><small>Tài chính / quản trị</small></button>
+            <button class="v2-zone camera" data-zone="camera" type="button"><span>📹</span><strong>Camera</strong><small id="zoneRiskText">Ổn định</small></button>
+            <div class="v2-entry"><span>CỬA RA VÀO</span><div class="v2-entry-line"></div></div>
+            <div id="liveFloorPeople" class="v2-floor-people" aria-hidden="true"></div>
+          </div>
+          <div class="v2-zone-help">Bấm từng khu vực để đi thẳng tới nghiệp vụ. Quầy bán/cầm sẽ ưu tiên khách đang chờ trong Live Queue.</div>
+        </article>
+
+        <aside class="v2-live-side">
+          <article class="panel">
+            <div class="panel-head compact"><div><span class="eyebrow">HÀNG CHỜ</span><h3>Khách trong tiệm</h3></div><span id="queueCountBadge" class="tag">0</span></div>
+            <div id="liveQueue" class="v2-queue"></div>
+            <button id="serveNextBtn" class="btn primary wide" type="button">PHỤC VỤ KHÁCH ĐẦU HÀNG</button>
+          </article>
+          <article class="panel">
+            <div class="panel-head compact"><div><span class="eyebrow">ĐANG PHỤC VỤ</span><h3 id="liveCurrentTitle">Chưa có giao dịch</h3></div></div>
+            <div id="liveCurrentCustomer" class="v2-current-customer"></div>
+            <div class="v2-current-actions"><button id="openCounterBtn" class="btn gold" type="button">MỞ QUẦY GIAO DỊCH</button><button id="readCustomerBtn" class="btn ghost" type="button">🔊 Đọc nhu cầu</button></div>
+          </article>
+        </aside>
+      </div>
+
+      <div class="v2-bottom-grid">
+        <article class="panel">
+          <div class="panel-head"><div><span class="step">NHÂN SỰ LIVE</span><h2>Phân công ca làm</h2></div><span class="tag">Năng lượng ảnh hưởng tốc độ phục vụ</span></div>
+          <div id="liveStaffBoard" class="v2-staff-board"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-head compact"><div><span class="eyebrow">NHẬT KÝ LIVE</span><h3>Diễn biến trong ca</h3></div></div>
+          <div id="liveLog" class="v2-live-log"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="view-shop" class="view">
+      <div class="market-strip" id="marketStrip"></div>
+      <div class="hud-grid" id="hudGrid"></div>
+      <div class="mission-grid">
+        <article class="mission-card panel"><div class="panel-head compact"><div><span class="eyebrow">MỤC TIÊU NGÀY</span><h3 id="missionTitle">Vận hành như chủ tiệm</h3></div><button class="speak tiny" data-speak="mission" type="button">🔊 Nghe</button></div><div id="missionList" class="mission-list"></div></article>
+        <article class="risk-card panel"><div class="panel-head compact"><div><span class="eyebrow">TRỢ LÝ TÀI CHÍNH</span><h3>Cảnh báo</h3></div></div><div id="riskAlerts" class="risk-list"></div></article>
+      </div>
+      <div class="game-grid">
+        <article class="shop-stage panel">
+          <div class="stage-header"><div><span id="shopLocationTag" class="tag">Chưa mở</span><h2 id="shopName">TIỆM VÀNG CỦA BẠN</h2></div><div class="day-actions"><button id="borrowBtn" class="btn ghost" type="button">Vay 1 tỷ</button><button id="endDayBtn" class="btn gold" type="button">Kiểm quỹ & đóng cửa</button></div></div>
+          <div class="store-scene" aria-label="Minh họa cửa hàng"><div class="wall-sign"><span>◆</span> TIỆM VÀNG</div><div class="security">CAM 01 ● CAM 02 ● CAM 03</div><div class="counter left"><span>TỦ TRANG SỨC</span></div><div class="counter right"><span>QUẦY GIAO DỊCH</span></div><div class="safe">KÉT</div><div class="scale">⚖<small>CÂN</small></div><div id="npcBubble" class="npc-bubble">Mở cửa để đón tình huống đầu tiên.</div><div id="customerAvatar" class="npc customer">👤</div><div class="npc staff">🧑‍💼</div><div id="sceneAlert" class="scene-alert hidden"></div></div>
+          <div class="progress-wrap"><div class="progress-label"><span>XP nghề nghiệp</span><span id="xpText">0 / 100 XP</span></div><div class="progress"><div id="xpBar" class="progress-bar"></div></div></div>
+        </article>
+        <article class="customer-card panel">
+          <div class="customer-profile"><div id="customerFace" class="customer-face">👤</div><div class="customer-meta"><span id="customerType" class="tag">Khách hàng</span><h3 id="customerName">Chưa có khách</h3><p id="customerMood">Hãy đón tình huống đầu tiên.</p></div><div id="eventTypeBadge" class="event-badge">—</div></div>
+          <div class="panel-head compact"><div><span class="step">TÌNH HUỐNG</span><h2 id="eventTitle">Chưa có giao dịch</h2></div><button id="eventSpeak" class="speak tiny" type="button">🔊 Nghe tình huống</button></div>
+          <div id="eventBody" class="event-body empty-state">Hãy mở tiệm ở phần Khởi nghiệp.</div><div id="transactionArea" class="transaction-area"></div>
+          <section id="cashierCalculator" class="cashier-calculator">
+            <div class="calc-head"><div><span class="eyebrow">MÁY TÍNH QUẦY</span><h3>Tính ngay tại giao dịch</h3></div><span id="calcStatus" class="tag">Sẵn sàng</span></div>
+            <div id="calcFormulaGuide" class="calc-formula-guide">Chọn một giao dịch có số tiền để hiện công thức cho khách.</div>
+            <div class="calc-layout">
+              <div class="calc-main">
+                <input id="calcDisplay" class="calc-display" inputmode="decimal" autocomplete="off" aria-label="Biểu thức máy tính" placeholder="0" />
+                <div class="calc-keypad" aria-label="Bàn phím máy tính">
+                  <button type="button" data-calc="C">C</button><button type="button" data-calc="(">(</button><button type="button" data-calc=")">)</button><button type="button" data-calc="/">÷</button>
+                  <button type="button" data-calc="7">7</button><button type="button" data-calc="8">8</button><button type="button" data-calc="9">9</button><button type="button" data-calc="*">×</button>
+                  <button type="button" data-calc="4">4</button><button type="button" data-calc="5">5</button><button type="button" data-calc="6">6</button><button type="button" data-calc="-">−</button>
+                  <button type="button" data-calc="1">1</button><button type="button" data-calc="2">2</button><button type="button" data-calc="3">3</button><button type="button" data-calc="+">+</button>
+                  <button type="button" data-calc="0">0</button><button type="button" data-calc="000">000</button><button type="button" data-calc="back">⌫</button><button type="button" data-calc="=">=</button>
+                </div>
+                <div class="calc-actions">
+                  <button id="calcLoadFormula" class="btn ghost" type="button">NẠP CÔNG THỨC GIAO DỊCH</button>
+                  <button id="calcUseResult" class="btn primary" type="button">ĐIỀN VÀO Ô THU / CHI</button>
+                </div>
+              </div>
+              <aside class="calc-history-panel">
+                <div class="calc-history-head"><strong>Lịch sử tính</strong><button id="calcClearHistory" class="btn ghost tiny" type="button">Xóa</button></div>
+                <div id="calcHistory" class="calc-history"><div class="muted">Chưa có phép tính.</div></div>
+              </aside>
+            </div>
+          </section>
+          <section id="posSettlement" class="pos-settlement hidden" aria-live="polite">
+            <div class="pos-head">
+              <div><span class="eyebrow">POS / THU NGÂN</span><h3 id="posTitle">Chờ xác nhận số tiền</h3></div>
+              <span id="posDirection" class="tag">—</span>
+            </div>
+            <div class="pos-grid">
+              <div class="pos-screen">
+                <span>Số tiền giao dịch</span><strong id="posAmount">0đ</strong>
+                <small id="posExplanation">Tính đúng công thức để mở bước thu/chi.</small>
+              </div>
+              <label id="tenderWrap" class="pos-field"><span>Tiền khách đưa</span><input id="tenderInput" inputmode="numeric" placeholder="0" /></label>
+              <div class="pos-screen change"><span>Tiền thối lại</span><strong id="changeAmount">0đ</strong><small id="posCashHint">POS tự tính để tránh nhầm tiền.</small></div>
+            </div>
+            <div class="pos-actions">
+              <button id="exactTenderBtn" class="btn ghost" type="button">Khách đưa đủ</button>
+              <button id="confirmSettlementBtn" class="btn primary" type="button">XÁC NHẬN THU / CHI & IN PHIẾU</button>
+            </div>
+          </section>
+          <div id="lastReceipt" class="last-receipt hidden"></div>
+          <div class="event-actions"><button id="nextCustomerBtn" class="btn primary" type="button">TÌNH HUỐNG TIẾP</button><button id="showHintBtn" class="btn ghost" type="button">Xem công thức / gợi ý</button></div><div id="hintBox" class="hint-box hidden"></div>
+        </article>
+      </div>
+      <div class="ledger-grid"><article class="panel"><div class="panel-head compact"><h3>Sổ ngày</h3><span id="customerCount">0 tình huống</span></div><div id="ledger" class="ledger"></div></article><article class="panel"><div class="panel-head compact"><h3>Sức khỏe tiệm</h3></div><div id="businessMeters" class="meters"></div></article></div>
+    </section>
+
+    <section id="view-store3d" class="view v3-view immersive-game-view">
+      <div class="immersive-shell">
+        <div class="immersive-top-hud">
+          <div class="immersive-brandline">
+            <span id="v3OpenBadge" class="v3-open-badge paused">TẠM DỪNG</span>
+            <div><strong id="v3StoreTitle">TIỆM VÀNG CỦA BẠN</strong><small>Chạm sàn để di chuyển · chạm người/vật thể để làm việc</small></div>
+          </div>
+          <div class="immersive-kpis">
+            <div><span>Giờ</span><strong id="v3Clock">08:00</strong></div>
+            <div><span>Tiền mặt</span><strong id="v3Cash">0đ</strong></div>
+            <div><span>Kho</span><strong id="v3Stock">0 SKU</strong></div>
+            <div><span>Khách</span><strong id="v3CustomerCount">0</strong></div>
+            <div><span>Nhân viên</span><strong id="v3StaffCount">0</strong></div>
+          </div>
+          <div class="immersive-run-controls">
+            <button id="v3PlayBtn" class="hud-btn primary" type="button">▶</button>
+            <button id="v3PauseBtn" class="hud-btn" type="button">Ⅱ</button>
+            <button class="hud-btn v3-speed active" data-v3-speed="1" type="button">x1</button>
+            <button class="hud-btn v3-speed" data-v3-speed="2" type="button">x2</button>
+            <button class="hud-btn v3-speed" data-v3-speed="4" type="button">x4</button>
+            <button id="v3CameraBtn" class="hud-btn" type="button">⟳</button>
+            <button id="v3ZoomOut" class="hud-btn" type="button">−</button>
+            <button id="v3ZoomIn" class="hud-btn" type="button">＋</button>
+          </div>
+        </div>
+
+        <div id="v3CanvasWrap" class="v3-canvas-wrap immersive-canvas-wrap">
+          <canvas id="v3Canvas" tabindex="0" aria-label="Cửa hàng vàng 3D. Tap xuống sàn để di chuyển."></canvas>
+          <div id="v3TapHint" class="immersive-tip">Tap sàn để đi · Tap khách để nói chuyện · Tap quầy để thao tác</div>
+          <div id="v3SpeechBubble" class="v3-speech-bubble hidden"></div>
+          <div class="immersive-queue-card">
+            <div class="mini-head"><span>KHÁCH ĐANG CHỜ</span><button id="v3ServeNext" type="button">Phục vụ</button></div>
+            <div id="v3Queue" class="v3-queue compact"></div>
+          </div>
+          <div class="immersive-interaction-card">
+            <div class="mini-head"><span id="v3InteractTitle">Tương tác</span><span id="v3Distance">—</span></div>
+            <div id="v3InteractBody" class="v3-interact-body"></div>
+            <div id="v3InteractActions" class="v3-interact-actions"></div>
+          </div>
+          <div class="immersive-flow-card">
+            <div class="mini-head"><span>LUỒNG NGHIỆP VỤ</span><span id="v3PathStatus">Sẵn sàng</span></div>
+            <div id="v3Workflow" class="v3-workflow horizontal"></div>
+          </div>
+          <div class="immersive-dock" role="toolbar" aria-label="Tính năng trong cửa hàng">
+            <button class="dock-btn startup-dock" data-unified="startup" type="button"><b>🏪</b><span>Khởi nghiệp</span></button>
+            <button class="dock-btn active" data-unified="shop" type="button"><b>🧮</b><span>Quầy</span></button>
+            <button class="dock-btn" data-unified="inventory" type="button"><b>💍</b><span>Kho</span></button>
+            <button class="dock-btn" data-unified="pawn" type="button"><b>🤝</b><span>Cầm đồ</span></button>
+            <button class="dock-btn" data-unified="finance" type="button"><b>💰</b><span>Tài chính</span></button>
+            <button class="dock-btn" data-unified="management" type="button"><b>⚙️</b><span>Giá & quản trị</span></button>
+            <button class="dock-btn" data-unified="customers" type="button"><b>👥</b><span>Khách</span></button>
+            <button class="dock-btn" data-unified="kbl" type="button"><b>★</b><span>Chành / Đối tác</span></button>
+            <button class="dock-btn" data-unified="report" type="button"><b>📊</b><span>Báo cáo</span></button>
+          </div>
+        </div>
+
+        <div class="immersive-utility-row">
+          <button id="v3CenterPlayer" class="utility-btn" type="button">⌖ Về chủ tiệm</button>
+          <button id="v3BriefBtn" class="utility-btn" type="button">🔊 Nghe briefing</button>
+          <button id="v3LabelsBtn" class="utility-btn" type="button">🏷 Nhãn: Bật</button>
+          <span id="v3StaffMood" class="utility-status">Đội ngũ vào ca</span>
+          <button id="v3ClearLog" class="utility-btn subtle" type="button">Xóa nhật ký</button>
+        </div>
+        <div id="v3StaffStrip" class="hidden"></div>
+        <div id="v3Log" class="hidden"></div>
+      </div>
+
+      <div id="unifiedDrawer" class="unified-drawer" aria-hidden="true">
+        <div class="unified-drawer-head"><div><span class="eyebrow">TRONG CỬA HÀNG</span><h2 id="unifiedDrawerTitle">Quầy giao dịch</h2></div><button id="unifiedDrawerClose" class="drawer-close" type="button">×</button></div>
+        <div id="unifiedDrawerBody" class="unified-drawer-body"></div>
+      </div>
+    </section>
+
+    <section id="view-inventory" class="view">
+      <div class="section-intro"><div><span class="eyebrow">V1.0 · KHO VÀNG / SKU</span><h2>Từng món có SKU, trọng lượng, vàng vốn, công vốn, giá bán và chành</h2><p>Không còn tồn kho là một con số. Mỗi món được theo dõi riêng từ lúc nhập đến lúc bán/đổi/trả chành.</p></div><button class="speak" data-speak="inventory" type="button">🔊 Nghe cách quản kho</button></div>
+      <div id="inventoryStats" class="report-grid"></div>
+      <div class="inventory-layout">
+        <article class="panel inventory-main">
+          <div class="panel-head"><div><span class="step">KHO</span><h2>Danh sách SKU</h2></div><div class="toolbar"><select id="inventoryFilter"><option value="all">Tất cả</option><option value="610">Vàng 610</option><option value="980">Vàng 980</option><option value="9999">Vàng 9999</option><option value="aged">Tồn lâu ≥ 30 ngày</option><option value="chanh">Có quy chành</option></select><input id="inventorySearch" type="search" placeholder="Tìm SKU / tên món" /></div></div>
+          <div class="table-wrap"><table class="data-table"><thead><tr><th>SKU</th><th>Sản phẩm</th><th>Loại / TL</th><th>Vàng vốn</th><th>Công vốn</th><th>Dự phòng hao/đổi</th><th>Giá vốn quản trị</th><th>Giá vàng bán</th><th>Công bán</th><th>Lãi gộp dự kiến</th><th>Quy chành</th><th>Trạng thái</th></tr></thead><tbody id="inventoryTable"></tbody></table></div>
+        </article>
+        <aside class="inventory-side">
+          <article class="panel supplier-network-promo"><div class="supplier-network-mark">★</div><div><span class="eyebrow">ĐỐI TÁC / CHÀNH CUNG CẤP</span><h3>Mạng lưới nguồn hàng</h3><p>Kim Bảo Lâm, An Phát, Kim Thành và các chành khác cùng nằm trong một hệ thống nguồn hàng. Người chơi tự chọn chành theo uy tín, hạn mức, công nợ và nhóm sản phẩm.</p><div class="kbl-tags"><span>Không ưu tiên thương hiệu</span><span>So sánh nhiều chành</span><span>Công nợ theo từng đối tác</span></div></div></article>
+          <article class="panel"><div class="panel-head compact"><h3>Nhập lô từ chành</h3><button class="speak tiny" data-speak="supplier" type="button">🔊</button></div><div class="form-stack"><label>Nhà cung cấp<select id="supplierSelect"></select></label><label>Ngân sách nhập<input id="supplierOrderAmount" type="number" min="10000000" step="10000000" value="200000000" /></label><label>Thanh toán<select id="supplierPayMode"><option value="cash">Tiền mặt</option><option value="credit">Công nợ chành</option></select></label><button id="supplierOrderBtn" class="btn primary" type="button">NHẬP LÔ HÀNG</button></div></article>
+          <article class="panel"><div class="panel-head compact"><h3>Kiểm kho</h3></div><p class="muted">Game so sánh SKU hệ thống với kiểm kê mô phỏng. Có nâng cấp an ninh sẽ giảm xác suất lệch.</p><button id="stockAuditBtn" class="btn ghost" type="button">KIỂM KHO NGAY</button><div id="stockAuditResult" class="hint-box">Chưa kiểm.</div></article>
+          <article class="panel"><div class="panel-head compact"><h3>Công nợ chành</h3></div><div id="supplierDebtList" class="mini-list"></div></article>
+        </aside>
+      </div>
+    </section>
+
+    <section id="view-pawn" class="view">
+      <div class="section-intro"><div><span class="eyebrow">V1.0 · CẦM ĐỒ</span><h2>Quản lý vòng đời hợp đồng cầm</h2><p>Giải ngân ≠ chi phí. Thu lãi/phí ≠ hoàn gốc. Hợp đồng giữ nguyên mức thu tại thời điểm ký.</p></div><button class="speak" data-speak="pawn" type="button">🔊 Nghe nghiệp vụ</button></div>
+      <div id="pawnStats" class="report-grid"></div>
+      <article class="panel"><div class="panel-head"><div><span class="step">HỢP ĐỒNG</span><h2>Danh sách cầm đồ</h2></div><div class="toolbar"><select id="pawnFilter"><option value="all">Tất cả</option><option value="active">Đang cầm</option><option value="overdue">Quá hạn</option><option value="redeemed">Đã chuộc</option><option value="liquidated">Đã chuyển hàng chờ xử lý</option></select></div></div><div id="pawnContracts" class="contract-grid"></div></article>
+      <div class="academy-note">Ngưỡng quá hạn/thanh lý trong V1.0 local là <strong>quy tắc mô phỏng game</strong>, không được coi là quy định pháp lý hiện hành. Khi làm bản thương mại sẽ tách Legal Rules theo địa phương và thời điểm.</div>
+    </section>
+
+    <section id="view-finance" class="view">
+      <div class="section-intro"><div><span class="eyebrow">V1.0 · BUSINESS FINANCE</span><h2>Đọc doanh nghiệp bằng tài sản, nợ, lợi nhuận và dòng tiền</h2><p>Một chủ tiệm phải biết mình giàu trên sổ hay thật sự có tiền để trả nghĩa vụ ngày mai.</p></div><button class="speak" data-speak="finance" type="button">🔊 Nghe báo cáo</button></div>
+      <div class="finance-grid-top"><article class="panel"><div class="panel-head compact"><h3>Bảng cân đối</h3></div><div id="balanceSheet" class="statement"></div></article><article class="panel"><div class="panel-head compact"><h3>P&amp;L ngày hiện tại</h3></div><div id="profitLoss" class="statement"></div></article><article class="panel"><div class="panel-head compact"><h3>Dòng tiền & nghĩa vụ</h3></div><div id="cashFlowPanel" class="statement"></div></article></div>
+      <div class="finance-actions-grid"><article class="panel"><div class="panel-head compact"><h3>Ngân hàng</h3></div><div class="bank-actions"><button id="borrowFinanceBtn" class="btn primary" type="button">Vay +1 tỷ</button><button id="repayFinanceBtn" class="btn ghost" type="button">Trả 500 triệu</button></div><div id="bankHealth" class="hint-box"></div></article><article class="panel"><div class="panel-head compact"><h3>Thanh toán công nợ chành</h3></div><div id="supplierPaymentList" class="mini-list"></div></article></div>
+      <article class="panel"><div class="panel-head"><div><span class="step">SỔ</span><h2>Nhật ký kế toán kép</h2></div><span id="journalBalance" class="tag">Cân</span></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Ngày/giờ</th><th>Nghiệp vụ</th><th>Tài khoản</th><th>Nợ</th><th>Có</th></tr></thead><tbody id="journalTable"></tbody></table></div></article>
+    </section>
+
+    <section id="view-management" class="view">
+      <div class="section-intro"><div><span class="eyebrow">QUẢN TRỊ DOANH NGHIỆP</span><h2>Chính sách, nhân sự, chi phí và nâng cấp</h2><p>Chủ tiệm tự đặt mức cầm, phí đổi; game giữ lịch sử chính sách theo từng giao dịch.</p></div></div>
+      <div id="managementStats" class="report-grid"></div>
+      <div class="management-grid">
+        <article class="panel span-2"><div class="panel-head"><div><span class="step">BẢNG GIÁ BÁN</span><h2>Người chơi tự kê giá vàng & công bán</h2></div><button id="syncMarketPriceBtn" class="btn ghost" type="button">ĐỒNG BỘ GIÁ THỊ TRƯỜNG</button></div>
+          <p class="muted">Game tự tính vàng vốn + công vốn + dự phòng hao/đổi thành <strong>giá vốn quản trị</strong>. Bạn quyết định giá vàng bán/chỉ và công bán; khách sẽ so trực tiếp với đối thủ.</p>
+          <div class="policy-grid management-policy pricing-grid">
+            <label><span>Vàng 610 bán ra</span><div class="input-suffix"><input data-pricing="gold-610" type="number" step="10000"><b>đ/chỉ</b></div></label>
+            <label><span>Vàng 980 bán ra</span><div class="input-suffix"><input data-pricing="gold-980" type="number" step="10000"><b>đ/chỉ</b></div></label>
+            <label><span>Vàng 9999 bán ra</span><div class="input-suffix"><input data-pricing="gold-9999" type="number" step="10000"><b>đ/chỉ</b></div></label>
+            <label><span>Hệ số công bán mặc định khi tạo SKU mới</span><div class="input-suffix"><input data-pricing="laborMarkup" type="number" min="1" max="5" step="0.05"><b>× công vốn</b></div></label>
+          </div><div id="pricingSummary" class="policy-summary"></div>
+        </article>
+        <article class="panel span-2"><div class="panel-head"><div><span class="step">ĐỐI THỦ</span><h2>Giá ngoài thị trường & khả năng có khách</h2></div></div><div id="competitionPanel" class="competition-panel"></div></article>
+        <article class="panel span-2"><div class="panel-head"><div><span class="step">CHÍNH SÁCH GIÁ</span><h2>Mức cầm & phí đổi</h2></div><button class="speak tiny" data-speak="pawn" type="button">🔊 Nghe</button></div><div class="policy-grid management-policy">
+          <label><span>Cầm ≤20tr</span><div class="input-suffix"><input data-policy="pawnUpTo20" data-kind="percent" type="number" step="0.1"><b>%/tháng tổng</b></div></label>
+          <label><span>Cầm &gt;20–50tr</span><div class="input-suffix"><input data-policy="pawn20To50" data-kind="percent" type="number" step="0.1"><b>%/tháng tổng</b></div></label>
+          <label><span>Cầm &gt;50tr</span><div class="input-suffix"><input data-policy="pawnOver50" data-kind="percent" type="number" step="0.1"><b>%/tháng tổng</b></div></label>
+          <label><span>Phí đổi cùng loại</span><div class="input-suffix"><input data-policy="exchangeFeePerChi" data-kind="money" type="number" step="10000"><b>đ/chỉ</b></div></label>
+          <label><span>Hao chành quy 622 (demo)</span><div class="input-suffix"><input data-policy="chanh622" data-kind="percent" type="number" step="0.1"><b>% giá vốn</b></div></label>
+          <label><span>Hao chành quy 625 (demo)</span><div class="input-suffix"><input data-policy="chanh625" data-kind="percent" type="number" step="0.1"><b>% giá vốn</b></div></label>
+          <label><span>Hao chành quy 630 (demo)</span><div class="input-suffix"><input data-policy="chanh630" data-kind="percent" type="number" step="0.1"><b>% giá vốn</b></div></label>
+        </div><div class="policy-summary"><strong>Hiện tại:</strong> <span data-policy-summary></span></div></article>
+        <article class="panel"><div class="panel-head"><div><span class="step">NHÂN SỰ</span><h2>Đội ngũ</h2></div><button class="speak tiny" data-speak="staff" type="button">🔊</button></div><div id="staffList" class="staff-list"></div></article>
+        <article class="panel"><div class="panel-head"><div><span class="step">CHI PHÍ</span><h2>Burn rate</h2></div><div id="operatingCosts" class="statement"></div></article>
+        <article class="panel span-2"><div class="panel-head"><div><span class="step">NÂNG CẤP</span><h2>Đầu tư vào vận hành</h2></div></div><div id="upgradeList" class="upgrade-grid"></div></article>
+        <article class="panel"><div class="panel-head"><div><span class="step">ĐÀO TẠO</span><h2>Nhân viên</h2></div></div><div id="staffActions" class="staff-actions"></div><button id="hireStaffBtn" class="btn primary" type="button">TUYỂN NHÂN VIÊN 25 TRIỆU</button></article>
+        <article class="panel"><div class="panel-head"><div><span class="step">CHI NHÁNH</span><h2>Mở rộng chuỗi</h2></div></div><div id="branchSummary" class="branch-summary"></div><button id="openBranchBtn" class="btn gold" type="button">MỞ CHI NHÁNH MỚI</button></article>
+      </div>
+    </section>
+
+    <section id="view-customers" class="view">
+      <div class="section-intro"><div><span class="eyebrow">V1.0 · CRM KHÁCH HÀNG</span><h2>Khách nhớ tiệm, nhớ lần mua và mức độ tin tưởng</h2><p>Mỗi khách quay lại có lịch sử lượt ghé, tổng giao dịch và mức trung thành. Xử lý sai làm giảm tin tưởng; phục vụ chuẩn giúp hình thành khách quen/VIP.</p></div><button class="speak" data-speak="customers" type="button">🔊 Nghe</button></div>
+      <div id="customerStats" class="report-grid"></div>
+      <article class="panel"><div class="panel-head"><div><span class="step">CRM</span><h2>Hồ sơ khách</h2></div><div class="toolbar"><select id="customerFilter"><option value="all">Tất cả</option><option value="vip">VIP / trung thành</option><option value="risk">Tin tưởng thấp</option></select></div></div><div id="customerList" class="customer-crm-grid"></div></article>
+      <article class="panel"><div class="panel-head compact"><h3>Lịch sử phiếu tại quầy</h3></div><div id="receiptHistory" class="receipt-history"></div></article>
+    </section>
+
+    <section id="view-campaign" class="view">
+      <div class="section-intro"><div><span class="eyebrow">V1.0 · CAREER CAMPAIGN</span><h2>Từ 10 tỷ vốn ban đầu đến chuỗi tiệm vàng</h2><p>Không chỉ kiếm tiền: người chơi phải sống sót, giữ uy tín, quản lý thanh khoản, đào tạo đội ngũ và mở rộng đúng thời điểm.</p></div><button class="speak" data-speak="campaign" type="button">🔊 Nghe mục tiêu</button></div>
+      <div id="campaignHero" class="campaign-hero panel"></div>
+      <div class="campaign-layout">
+        <article class="panel"><div class="panel-head compact"><h3>Cột mốc sự nghiệp</h3></div><div id="milestoneList" class="milestone-list"></div></article>
+        <article class="panel"><div class="panel-head compact"><h3>Thành tựu</h3></div><div id="achievementList" class="achievement-grid"></div></article>
+      </div>
+      <article class="panel"><div class="panel-head compact"><h3>Chuỗi cửa hàng</h3></div><div id="branchList" class="branch-list"></div></article>
+    </section>
+
+    <section id="view-academy" class="view"><div class="section-intro"><div><span class="eyebrow">HỌC NGHỀ TRONG GAME</span><h2>Đọc ít hoặc bấm nghe</h2><p>Công thức được khóa trong Rule Engine; AI/voice chỉ giải thích, không tự sửa số.</p></div></div><div id="academyCards" class="academy-grid"></div></section>
+
+    <section id="view-report" class="view"><div class="report-hero panel"><div><span class="eyebrow">KẾT QUẢ KINH DOANH</span><h2 id="reportHeadline">Chưa khóa sổ ngày nào</h2><p id="reportSub">Đóng cửa cuối ngày để xem lợi nhuận và chất lượng vốn.</p></div><div class="profit-box"><span>Lợi nhuận ngày gần nhất</span><strong id="lastProfit">0đ</strong></div></div><div id="reportCards" class="report-grid"></div><article class="panel"><div class="panel-head compact"><h3>Lịch sử ngày</h3></div><div id="dayHistory" class="history"></div></article></section>
+
+    <section id="view-map" class="view"><div id="mapLocked" class="locked-view panel"><div class="lock-big">🔒</div><h2>Bản đồ thị trường chưa mở</h2><p>Đạt Level 3 để mở các tiệm AI và bảng xếp hạng khu vực.</p></div><div id="mapUnlocked" class="map-view hidden"><div class="panel map-panel"><div class="panel-head"><div><span class="eyebrow">KHU VỰC KINH DOANH</span><h2>Bản đồ cạnh tranh</h2></div><span class="tag">Level 3+</span></div><div class="map-canvas"><div class="road r1"></div><div class="road r2"></div><div class="map-shop you">★<span>Tiệm của bạn</span></div><div class="map-shop c1">◆<span>Kim Phát</span></div><div class="map-shop c2">◆<span>Phúc Lộc</span></div><div class="map-shop c3">◆<span>Thành Tín</span></div></div></div><div id="rankBoard" class="panel"></div></div></section>
+  </main>
+</div>
+<div id="toast" class="toast" aria-live="polite"></div>
+<script src="./auth.js"></script>
+<script src="./app.js"></script>
+<script src="./v2.js"></script>
+<script src="https://unpkg.com/three@0.159.0/build/three.min.js" onerror="document.write('<script src=&quot;https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js&quot;><\/script>')"></script>
+<script>
+window.__REAL3D_ENABLED__=!!window.THREE;
+if(!window.__REAL3D_ENABLED__){
+  window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
+    const t=document.getElementById('toast');
+    if(t){t.textContent='Three.js chưa tải được — đang dùng renderer dự phòng. Kết nối Internet và mở lại để chạy Real 3D.';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),6500)}
+  },300));
+}
+</script>
+<script src="./v3.js"></script>
+<script src="./unified.js"></script>
+<script src="./v1-real3d.js"></script>
+<script src="./v4.js"></script>
+<script src="./v45.js"></script>
+<script src="./v46.js"></script>
+<script src="./v47.js"></script>
+<script src="./v5.js"></script>
+<script src="./v9-playable.js"></script>
+<script src="./v1-complete.js"></script>
+</body>
+</html>

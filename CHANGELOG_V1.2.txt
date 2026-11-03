@@ -1,0 +1,49 @@
+GOLD SHOP SIMULATOR V1.2 - CHARACTER MOTION & GAMEPLAY ACCURACY
+
+Mục tiêu bản này
+- Không tạo thêm ảnh concept.
+- Tập trung trực tiếp vào chuyển động nhân vật, rig/animation runtime, đường đi, va chạm, tương tác và độ ổn định FPS trong game 3D.
+
+1. Animation nhân vật thật khi GLB có clip
+- Giữ lại glTF animation clips khi tải owner_m.glb / owner_f.glb hoặc rigged character khác.
+- Dùng THREE.AnimationMixer cho Idle / Walk / Run / Talk khi asset có clip phù hợp.
+- Cross-fade 0.16s giữa trạng thái để giảm giật animation.
+- Tốc độ Walk/Run tự scale theo vận tốc thật của nhân vật để giảm trượt chân.
+- Nếu GLB chỉ có rig nhưng không có locomotion clip, runtime tự quay về procedural bone animation thay vì đứng cứng.
+
+2. Di chuyển đúng theo thời gian thật
+- Không còn bỏ mất thời gian simulation khi FPS tụt dưới 30.
+- Frame dài được chia thành tối đa 4 physics/AI sub-step.
+- Camera vẫn render một lần mỗi frame nên không tăng draw-call vô ích.
+- Chuyển động/rotation giữ gần cùng tốc độ ở 30/60/120 Hz.
+
+3. Va chạm theo kích thước cơ thể
+- Player/NPC không còn được kiểm tra như một điểm vô kích thước.
+- Tủ, POS, bàn cân, quầy cầm đồ, tường và biên sàn được nới theo radius của nhân vật.
+- Player radius 0.30m; NPC radius 0.26m.
+- Giảm xuyên quầy, cắt góc và vai/tay lọt vào nội thất.
+
+4. Navigation chính xác hơn
+- A* grid tinh hơn: 0.38m.
+- Diagonal corner prevention vẫn giữ.
+- Line-of-sight smoothing kiểm tra theo radius nhân vật, không chỉ tâm điểm.
+- NPC/nhân viên/khách tham quan dùng smart route thay vì cứ đi thẳng tới mục tiêu.
+- Có repath khi goal đổi, đường bị chặn hoặc agent bị kẹt.
+- Arrival snap chỉ xảy ra khi đã đủ gần và tốc độ thấp.
+
+5. Tương tác vật lý hợp lý hơn
+- Tap quầy/khách vẫn ra lệnh đi tới.
+- Nút nghiệp vụ chỉ bật sau khi chủ tiệm thật sự đứng đủ gần.
+- Tap khách không còn cho phép nói chuyện/phục vụ từ xa trong lúc nhân vật còn đang đi.
+- Tap quầy không còn cho phép mở nghiệp vụ từ giữa phòng.
+
+6. Hiệu năng
+- Giữ adaptive DPR của V1.1.
+- Giữ far-NPC animation throttling.
+- AnimationMixer chỉ bật khi asset có locomotion clips; static rig không chịu thêm mixer cost.
+- Render vẫn 1 lần/frame dù simulation có sub-step.
+
+ART STATUS
+- Hai mannequin/blockout bị từ chối KHÔNG được đưa vào game.
+- assets/characters/owner_m.glb và owner_f.glb vẫn là slot dành cho model final thật.
+- V1.2 làm runtime đủ tốt để khi gắn model production + animation clips vào, nhân vật sử dụng ngay hệ Idle/Walk/Run/Talk và navigation mới.

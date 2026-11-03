@@ -1,0 +1,33 @@
+/* V6.0 Real WebGL / Three.js visual layer. Core business UI remains inherited from V5.0. */
+body.real3d-ready .immersive-canvas-wrap{min-height:820px;background:#090705;overflow:hidden;isolation:isolate}
+body.real3d-ready #v3Canvas{display:none!important}
+#threeStage{position:absolute;inset:0;z-index:1;background:radial-gradient(circle at 50% 25%,#352611 0,#100d08 48%,#050504 100%)}
+#threeStage canvas{width:100%!important;height:100%!important;display:block;touch-action:none;outline:none;cursor:default}
+#threeStage .real3d-loader{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at center,#281b0e,#090705 66%);color:#f7dda0;font-weight:900;letter-spacing:.08em;z-index:5}
+body.real3d-ready .immersive-queue-card,
+body.real3d-ready .immersive-interaction-card,
+body.real3d-ready .immersive-flow-card,
+body.real3d-ready .immersive-dock,
+body.real3d-ready .immersive-tip,
+body.real3d-ready #v3SpeechBubble,
+body.real3d-ready #v45Director,
+body.real3d-ready #v46LevelCard,
+body.real3d-ready #v46MissionCard,
+body.real3d-ready #v47StatusStrip,
+body.real3d-ready #v5SceneBadge{z-index:9}
+.real3d-badge{position:absolute;left:16px;bottom:92px;z-index:9;display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid rgba(242,207,113,.28);border-radius:999px;background:rgba(8,7,5,.74);backdrop-filter:blur(10px);color:#f4deb0;font-size:9px;font-weight:900;letter-spacing:.08em;pointer-events:none}.real3d-badge i{width:7px;height:7px;border-radius:50%;background:#5ee297;box-shadow:0 0 12px rgba(94,226,151,.7)}
+.real3d-perf{position:absolute;right:16px;bottom:92px;z-index:9;padding:7px 9px;border-radius:9px;border:1px solid rgba(255,255,255,.08);background:rgba(8,7,5,.72);color:#ad9e82;font-size:9px;pointer-events:none}
+body.real3d-ready .immersive-canvas-wrap:before{z-index:2;pointer-events:none}
+body.real3d-ready .immersive-canvas-wrap:after{z-index:2;pointer-events:none}
+body.real3d-ready .immersive-top-hud{background:linear-gradient(180deg,rgba(18,13,8,.95),rgba(8,7,5,.96));box-shadow:0 20px 70px rgba(0,0,0,.45)}
+body.real3d-ready .immersive-brandline strong{color:#ffe19a}
+body.real3d-ready .immersive-kpis>div{background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));border-color:rgba(242,207,113,.13)}
+body.real3d-ready .immersive-interaction-card{background:linear-gradient(180deg,rgba(16,12,8,.92),rgba(7,6,5,.94));border-color:rgba(242,207,113,.24)}
+body.real3d-ready .immersive-queue-card{background:linear-gradient(180deg,rgba(15,11,8,.90),rgba(7,6,5,.93));border-color:rgba(242,207,113,.20)}
+body.real3d-ready .immersive-flow-card{background:rgba(8,7,5,.78);border-color:rgba(242,207,113,.16)}
+body.real3d-ready .immersive-dock{background:rgba(6,5,4,.85);border-color:rgba(242,207,113,.26)}
+.real3d-character-chip{display:inline-flex;gap:6px;align-items:center;padding:3px 7px;border-radius:999px;background:rgba(242,207,113,.09);border:1px solid rgba(242,207,113,.16);color:#e9d5a1;font-size:9px}
+.real3d-object-title{display:flex;align-items:center;gap:8px}.real3d-object-title i{width:8px;height:8px;border-radius:50%;background:#e9c75f;box-shadow:0 0 12px rgba(233,199,95,.55)}
+.real3d-material-note{margin-top:7px;color:#a89575;font-size:9px;line-height:1.45}
+@media(max-width:1180px){body.real3d-ready .immersive-canvas-wrap{min-height:710px}.real3d-badge,.real3d-perf{bottom:88px}}
+@media(max-width:760px){body.real3d-ready .immersive-canvas-wrap{min-height:620px}.real3d-badge{display:none}.real3d-perf{right:8px;bottom:86px}}
